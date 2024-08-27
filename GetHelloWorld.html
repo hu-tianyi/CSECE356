@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Download HTML</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Download URL
+            const fileUrl = "https://raw.githubusercontent.com/hu-tianyi/CSECE356/main/HelloWorld.html";
+
+            // Use Fetch API to obtain target content
+            fetch(fileUrl)
+                .then(response => response.blob())
+                .then(blob => {
+                    // Create a download URL
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'HelloWorld.html'; // Define download file name
+                    document.body.appendChild(a);
+                    a.click();
+
+                    // Cleanup
+                    a.remove();
+                    window.URL.revokeObjectURL(url);
+                })
+                .catch(error => console.error('Error downloading file:', error));
+        });
+    </script>
+</head>
+<body>
+    <h1>Downloding HelloWorld.html...</h1>
+</body>
+</html>
